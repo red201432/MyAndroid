@@ -2,15 +2,20 @@ package com.example.helloworld;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 
@@ -19,9 +24,24 @@ public class MainActivity extends Activity {
 	boolean[] checkedItems=new boolean [items.length];
 	ProgressDialog progressDialog;
 	String tag="Lifecycle";
+	int request_Code=1;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		FragmentManager fragmentManager=getFragmentManager();
+		FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+		
+		WindowManager wm=getWindowManager();
+		Display d=wm.getDefaultDisplay();
+		
+		if(d.getWidth()>d.getHeight()){
+			Fragment1 fragment1=new Fragment1();
+			fragmentTransaction.replace(android.R.id.content, fragment1);
+		}
+		else{
+			Fragment2 fragment2=new Fragment2();
+			fragmentTransaction.replace(android.R.id.content, fragment2);
+		}
 		//隐藏标题栏
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		
@@ -31,8 +51,12 @@ public class MainActivity extends Activity {
 	
 	public void onClick(View v){
 		showDialog(0);
+		startActivityForResult(new Intent("com.example.helloworld.SecondActivity"),request_Code);
 	}
 	
+	public void showFragment(View v){
+		setContentView(R.layout.testforrelativelayout);
+	}
 	@Override
 	protected Dialog onCreateDialog(int id){
 		switch(id){
@@ -121,6 +145,47 @@ public class MainActivity extends Activity {
 		}).start();
 	}
 	
+	//显式第二个活动
+	public void onClick4(View v){
+		startActivity(new Intent("com.example.helloworld.SecondActivity"));
+	}
+	
+	public void onClickThird(View v){
+		Intent i=new Intent("com.example.helloworld.ThirdActivity");
+		i.putExtra("str1", "这时一个字符串");
+		i.putExtra("age1", 25);
+		
+		
+		Bundle extras=new Bundle();
+		extras.putString("str2", "另一个字符串");
+		extras.putInt("age2", 35);
+		
+		i.putExtras(extras);
+		
+		
+		startActivityForResult(i,1);
+		
+		}
+		
+		public void onActivityResult(int requestCode,int resultCode,Intent data){
+			if(requestCode==1){
+				if(resultCode==RESULT_OK){
+					Toast.makeText(this, Integer.toString(data.getIntExtra("age3", 0)), 
+							Toast.LENGTH_SHORT).show();
+					
+					Toast.makeText(this, data.getData().toString(), Toast.LENGTH_SHORT).show();
+				}
+			}
+		}
+	//从意图返回结果
+//	int request_Code=1;
+//	public void onActivityResult(int requestCode,int resultCode,Intent data){
+//		if(requestCode==request_Code){
+//			if(resultCode==RESULT_OK){
+//				Toast.makeText(this, data.getData().toString(), Toast.LENGTH_SHORT).show();
+//			}
+//		}
+//	}
 	
 	public void onStart(){
 		super.onStart();
@@ -144,6 +209,13 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	
+	@Override
+	public void onSaveInstanceState(Bundle outState){
+		outState.putString("ID","123456");
+		super.onSaveInstanceState(outState);
+	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will

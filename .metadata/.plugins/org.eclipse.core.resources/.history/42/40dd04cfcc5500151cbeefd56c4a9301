@@ -1,0 +1,77 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.helloworld.MainActivity" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world"
+        
+         />
+
+    <Button
+        android:id="@+id/btn_dialog"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="149dp"
+        android:onClick="onClick"
+        android:text="click to display a dialog"
+        android:color="@color/alizarin"
+         />
+  <Button
+        android:id="@+id/btn_dialog2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="49dp"
+        android:onClick="onClick2"
+        android:text="click to display a progress dialog" />
+        <Button
+        android:id="@+id/btn_dialog3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="79dp"
+        android:onClick="onClick3"
+        android:text="click to display a details progress dialog" />
+    <Button
+        android:id="@+id/btn_dialog4"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="99dp"
+        android:onClick="onClick4"
+        android:text="click to display secondeActivity" />
+
+    <Button
+        android:id="@+id/btn_thirdActivity"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btn_dialog"
+        android:layout_below="@+id/btn_dialog"
+        android:layout_marginTop="156dp"
+        android:onClick="onClickThird"
+        android:text="click to display ThirdActivity" />
+        <Button
+        android:id="@+id/btn_showfragment"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btn_dialog"
+        android:layout_below="@+id/btn_dialog"
+        android:layout_marginTop="186dp"
+        android:onClick="showFragment"
+        android:text="click to show fragment" />
+     
+</RelativeLayout>
