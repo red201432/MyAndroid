@@ -1,0 +1,8 @@
+package testforclass;
+
+abstract public class Shape {
+	public abstract  void shape();
+	public static void draw(){
+		shape();
+	}
+}

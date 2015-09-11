@@ -1,0 +1,6 @@
+package com.example.utils;
+
+public class DBAdapter {
+	static final String KEY_ROWID="_id";
+	
+}

@@ -1,0 +1,17 @@
+package testforclass;
+
+public class Circle extends Shape {
+	String color=null;
+ @Override
+ public void shape(){
+	 System.out.println("This is a Circle");
+ }
+ @Override
+ public void setColor(){
+	 this.color="Red";
+	 System.out.println("Color is : "+color);
+ }
+public Circle(){
+	 super.draw();
+}
+}

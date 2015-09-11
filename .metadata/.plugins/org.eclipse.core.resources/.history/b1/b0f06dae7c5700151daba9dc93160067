@@ -1,0 +1,13 @@
+package testforclass;
+
+abstract public class Shape {
+	public abstract  void shape();
+	public abstract void setColor();
+	public Shape(){
+		
+	}
+	public  void draw(){
+		shape();
+		setColor();
+	}
+}

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+   >
+    <Button
+        android:id="@+id/button1"
+         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:onClick="showPreference"
+        android:text="Top Left"       
+         />
+ <Button
+        android:id="@+id/button2"
+         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:onClick="onModify"
+        android:text="Top Right modify"       
+         />
+  <Button
+        android:id="@+id/button3"
+         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:onClick="showGallery"
+        android:text="Bottom Left"       
+         />
+   <Button
+        android:id="@+id/button4"
+         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="Bottom Right"  
+        android:background="@drawable/button_shape"  
+        android:onClick="showTimePicker"   
+         />
+    <Button
+        android:id="@+id/button5"
+         android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"        
+        android:text="Middle" 
+        style="?android:attr/starStyle"      
+         />
+    <EditText
+        android:id="@+id/txtString"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        ></EditText>
+        
+</RelativeLayout>

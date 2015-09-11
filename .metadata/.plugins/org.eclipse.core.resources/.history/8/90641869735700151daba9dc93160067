@@ -1,0 +1,8 @@
+package testforclass;
+
+public class Shape {
+	public virtual void draw(){
+		System.out.println("Drawing Shape");
+		
+	}
+}

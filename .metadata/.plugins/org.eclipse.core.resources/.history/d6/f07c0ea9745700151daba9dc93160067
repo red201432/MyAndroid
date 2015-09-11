@@ -1,0 +1,11 @@
+package testforclass;
+
+public class Circle extends Shape {
+	public void main(){
+		
+	}
+ @Override
+ public void shape(){
+	 System.out.println("This is a Circle");
+ }
+}

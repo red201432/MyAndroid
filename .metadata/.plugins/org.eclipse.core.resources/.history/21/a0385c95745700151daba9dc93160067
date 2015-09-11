@@ -1,0 +1,8 @@
+package testforclass;
+
+public class Circle extends Shape {
+ @Override
+ public void shape(){
+	 
+ }
+}

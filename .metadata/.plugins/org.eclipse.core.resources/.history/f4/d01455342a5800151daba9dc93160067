@@ -1,0 +1,23 @@
+package com.example.helloworld;
+
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+
+public class TestForRelativeLayout extends Activity {
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.testforrelativelayout);
+		
+	}
+	public void onModify(View v){
+		SharedPreferences appPrefs=getSharedPreferences("com.example.helloworld_preferences",MODE_PRIVATE);
+		SharedPreferences.Editor prefsEditor=appPrefs.edit();
+		prefsEditor.putString("editTextPref",((EditText)findViewById(R.id.txtString)).getText().toString());
+		prefsEditor.commit();
+	}
+	
+}

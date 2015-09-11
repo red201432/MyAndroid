@@ -1,0 +1,8 @@
+package testforclass;
+
+public class MyMain {
+	public static void ain(){
+		Circle c=new Circle();
+		c.draw();
+	}
+}

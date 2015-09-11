@@ -1,0 +1,96 @@
+package com.example.helloworld;
+
+import android.app.Activity;
+import android.support.v7.app.ActionBarActivity;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.Display;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.BaseAdapter;
+import android.widget.Gallery;
+import android.widget.TimePicker;
+import android.widget.Toast;
+
+import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.res.TypedArray;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+public class GalleryActivity extends Activity {
+	Integer[] imageIDs={R.drawable.pic1,
+			R.drawable.pic2,
+			R.drawable.pic3,
+			R.drawable.pic4,
+			R.drawable.pic5,
+			R.drawable.pic6,
+			R.drawable.pic7
+	};
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.gallery);
+		
+		Gallery gallery=(Gallery) findViewById(R.id.gallery1);
+		
+		gallery.setAdapter(new ImageAdapter(this));
+		gallery.setOnItemClickListener(new OnItemClickListener(){
+			public void onItemClick(AdapterView parent,View v,int position, long id){
+				Toast.makeText(getBaseContext(), "pic"+(position+1)+"selected", Toast.LENGTH_LONG).show();
+			}
+		});
+	}
+	
+	public class ImageAdapter extends BaseAdapter{
+		
+		Context context;
+		int itemBackground;
+		
+		public ImageAdapter(Context c){
+			context=c;
+			
+			TypedArray a=obtainStyledAttributes(R.styleable.gallery1);
+		}
+		
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public Object getItem(int position) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+	}
+}

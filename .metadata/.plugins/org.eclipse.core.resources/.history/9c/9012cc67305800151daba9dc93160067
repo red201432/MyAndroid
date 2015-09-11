@@ -1,0 +1,18 @@
+package files;
+
+import com.example.helloworld.R;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.EditText;
+
+public class FilesActivity extends Activity {
+	EditText textBox;
+	static final int READ_BLOCK_SIZE=100;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.file_activity);
+	}	
+}

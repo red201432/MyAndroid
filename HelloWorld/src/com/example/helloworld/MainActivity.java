@@ -1,21 +1,39 @@
 package com.example.helloworld;
 
 import android.support.v7.app.ActionBarActivity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.example.utils.DBAdapter;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.util.Log;
 import android.view.View;
 
@@ -25,12 +43,26 @@ public class MainActivity extends Activity {
 	ProgressDialog progressDialog;
 	String tag="Lifecycle";
 	int request_Code=1;
+	TimePicker timePicker;
+	static final int TIME_DIALOG_ID=5;
+	int hour,minute;
+	
+	EditText textBox;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		FragmentManager fragmentManager=getFragmentManager();
 		FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
 		
+		//测试数据库
+		DBAdapter db=new DBAdapter(this);
+		db.open();
+		long id=db.insertContact("Wei-MingLee","ceshi@126.com");
+		id=db.insertContact("Mary Jackon","mary@163.com");
+//		db.close();
+		
+		
+		//测试结束
 		WindowManager wm=getWindowManager();
 		Display d=wm.getDefaultDisplay();
 		
@@ -48,7 +80,14 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		Log.d(tag, "In the onCreate() event");
 	}
-	
+	public void showTimePicker(View v){
+		setContentView(R.layout.timepicker1);
+	}
+	public void onTimePickerClick(View v){
+		timePicker=(TimePicker) findViewById(R.id.timePicker);
+		timePicker.setIs24HourView(true);
+		Toast.makeText(getBaseContext(),"Time selected :"+timePicker.getCurrentHour()+":"+timePicker.getCurrentMinute(),Toast.LENGTH_SHORT).show();
+	}
 	public void onClick(View v){
 		showDialog(0);
 		startActivityForResult(new Intent("com.example.helloworld.SecondActivity"),request_Code);
@@ -60,6 +99,8 @@ public class MainActivity extends Activity {
 	@Override
 	protected Dialog onCreateDialog(int id){
 		switch(id){
+//		case TIME_DIALOG_ID:
+//			return new TimePickerDialog(this,mTimeSetListener,hour,minute,false);
 		case 0:
 			return new AlertDialog.Builder(this)
 					.setIcon(R.drawable.ic_launcher)
@@ -108,6 +149,22 @@ public class MainActivity extends Activity {
 		}
 		return null;
 	}
+	//
+	private TimePickerDialog.OnTimeSetListener mTimeSetListener=new TimePickerDialog.OnTimeSetListener() {
+		
+		@Override
+		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+			// TODO Auto-generated method stub
+			hour=hourOfDay;
+			minute=minute;
+			SimpleDateFormat timeFormat=new SimpleDateFormat("hh:mm:ss");
+			Date date=new Date(0,0,0,hour,minute);
+			String strDate=timeFormat.format(date);
+			Toast.makeText(getBaseContext(), "you have selected"+strDate, Toast.LENGTH_SHORT).show();
+		}
+	};
+	
+	
 	//显式等待窗口
 	public void onClick2(View v){
 		final ProgressDialog dialog =ProgressDialog.show(this, "Doing something", "Please wait ...",true);
@@ -122,6 +179,7 @@ public class MainActivity extends Activity {
 				}
 			}
 		}).start();
+		
 	}
 	
 	//显式详细的进度条
@@ -186,6 +244,32 @@ public class MainActivity extends Activity {
 //			}
 //		}
 //	}
+	public void showGallery(View v){
+		startActivity(new Intent("com.example.helloworld.GalleryActivity"));
+	}
+	public void  showPreference(View v){
+		Intent i=new Intent("com.example.helloworld.AppPreferenceActivity");
+		startActivity(i);
+	}
+	public void onModify(View v){
+		SharedPreferences appPrefs=getSharedPreferences("com.example.helloworld_preferences",MODE_PRIVATE);
+		SharedPreferences.Editor prefsEditor=appPrefs.edit();
+		prefsEditor.putString("editTextPref",((EditText)findViewById(R.id.txtString)).getText().toString());
+		prefsEditor.commit();
+	}	
+	public void onDisplayText(View v){
+		SharedPreferences appPrefs=getSharedPreferences("com.example.helloworld_preferences",MODE_PRIVATE);
+		DisplayText(appPrefs.getString("editTextPref", ""));
+	}
+	private void DisplayText(String str){
+		Toast.makeText(getBaseContext(), str, Toast.LENGTH_SHORT).show();
+	}
+	
+	public void onClickFile(View v){
+		Intent i=new Intent("com.example.helloworld.FilesActivity");
+		startActivity(i);
+	}
+	
 	
 	public void onStart(){
 		super.onStart();
@@ -226,5 +310,22 @@ public class MainActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	//显示数据库中的数据
+	public void showData(View v){
+		DBAdapter db=new DBAdapter(this);
+		db.open();
+		Cursor c=db.getAllContacts();
+		if(c.moveToFirst()){
+			do{
+				DisplayContact(c);
+			}while(c.moveToNext());
+		}
+		db.close();
+	}
+	public void DisplayContact(Cursor c){
+		Toast.makeText(this, "id: "+c.getString(0)+"\n Name: "
+						+c.getString(1)+"\n Email: "+c.getString(2), Toast.LENGTH_SHORT).show();
 	}
 }

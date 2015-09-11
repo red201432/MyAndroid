@@ -1,0 +1,110 @@
+package com.example.helloworld;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
+import android.widget.Gallery;
+import android.widget.ImageSwitcher;
+import android.widget.ImageView;
+import android.widget.Toast;
+import android.widget.ViewSwitcher.ViewFactory;
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+public class GalleryActivity extends Activity implements ViewFactory {
+	Integer[] imageIDs={R.drawable.pic1,
+			R.drawable.pic2,
+			R.drawable.pic3,
+			R.drawable.pic4,
+			R.drawable.pic5,
+			R.drawable.pic6,
+			R.drawable.pic7
+	};
+	private ImageSwitcher imageSwitcher;
+	
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.galleryactivity);
+		
+		@SuppressWarnings("deprecation")
+		Gallery gallery=(Gallery) findViewById(R.id.gallery1);
+		
+		imageSwitcher=(ImageSwitcher)findViewById(R.id.switcher1);
+		
+		imageSwitcher.setFactory(this);
+		imageSwitcher.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));
+		imageSwitcher.setOutAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_out));
+		gallery.setAdapter(new ImageAdapter(this));
+			
+gallery.setOnItemClickListener(new OnItemClickListener(){
+			@SuppressWarnings("rawtypes")
+			public void onItemClick(AdapterView parent,View v,int position, long id){
+				Toast.makeText(getBaseContext(), "pic"+(position+1)+"selected", Toast.LENGTH_LONG).show();
+			//显示选取的图片
+				ImageView imageView=(ImageView)findViewById(R.id.image1);
+				imageView.setImageResource(imageIDs[position]);
+			}
+		});
+	}
+	
+	public class ImageAdapter extends BaseAdapter{
+		
+		Context context;
+		int itemBackground;
+		
+		public ImageAdapter(Context c){
+			context=c;
+			
+			TypedArray a=obtainStyledAttributes(R.styleable.gallery1);
+			itemBackground=a.getResourceId(R.styleable.gallery1_android_galleryItemBackground, 0);
+			a.recycle();
+		}
+		
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return imageIDs.length;
+		}
+
+		@Override
+		public Object getItem(int position) {
+			// TODO Auto-generated method stub
+			return position;
+		}
+
+		@Override
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return position;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			// TODO Auto-generated method stub
+			ImageView imageView;
+			if(convertView==null){
+				imageView=new ImageView(context);
+				imageView.setImageResource(imageIDs[position]);
+				imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+				imageView.setLayoutParams(new Gallery.LayoutParams(150,120));
+			}else{
+				imageView=(ImageView)convertView;
+			}
+			imageView.setBackgroundResource(itemBackground);
+			return imageView;
+		}
+		
+	}
+
+	@Override
+	public View makeView() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}
