@@ -1,0 +1,16 @@
+package com.example.helloworld;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+public class EmailActivity extends Activity {
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.sendemailactivity);
+	}
+	
+	public void onClick_SendEmail(View v){
+		
+	}
+}

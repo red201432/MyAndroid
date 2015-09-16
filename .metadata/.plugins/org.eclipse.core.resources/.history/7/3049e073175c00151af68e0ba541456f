@@ -1,0 +1,29 @@
+package com.example.sockets;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+
+import android.util.Log;
+
+public class CommsThread extends Thread{
+	private final Socket socket;
+	private final InputStream inputStream;
+	private final OutputStream outputSteam;
+	public CommsThread(Socket sock){
+		socket=sock;
+		InputStream tmpIn=null;
+		OutputStream temOut=null;
+		
+		try{
+			tmpIn=socket.getInputStream();
+			tmpOut=socket.getOutputStream();
+		}catch(IOException e) {
+			Log.d("SocketChat", e.getLocalizedMessage());
+		}
+		inputStream=tmpIn;
+		outputSteam=tmpOut;
+	}
+	
+}

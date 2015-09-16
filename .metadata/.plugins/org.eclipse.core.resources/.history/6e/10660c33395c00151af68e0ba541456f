@@ -1,0 +1,12 @@
+package com.example.helloworld;
+
+import android.app.IntentService;
+
+public class MyIntentService extends IntentService {
+
+	public MyIntentService() {
+		super("MyIntentService");
+		// TODO Auto-generated constructor stub
+	}
+	
+}

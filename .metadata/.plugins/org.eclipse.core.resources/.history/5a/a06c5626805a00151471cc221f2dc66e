@@ -1,0 +1,41 @@
+package com.example.helloworld;
+
+import android.app.ListActivity;
+import android.content.CursorLoader;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.ContactsContract;
+
+public class ProviderActivity extends ListActivity {
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.provider_activity);
+		
+		Uri allContacts=Uri.parse("content://contacts/people");
+		
+		Cursor c;
+		if(android.os.Build.VERSION.SDK_INT<11){
+			c=managedQuery(allContacts,null,null,null,null);
+		} else{
+			CursorLoader cursorLoader=new CursorLoader(this,
+					allContacts,
+					null,
+					null,
+					null,
+					null
+					);
+			c=cursorLoader.loadInBackground();
+		}
+		
+		String[] columns=new String[]{
+				ContactsContract.Contacts.DISPLAY_NAME,
+				ContactsContract.Contacts._ID
+		};
+		
+		int[] views=new int[] {R.id.contactName,R.id.contactID);
+			
+		}
+	}
+}

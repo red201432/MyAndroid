@@ -1,0 +1,134 @@
+package com.example.sockets;
+
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+import android.app.Activity;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class MainActivity extends Activity {
+
+	static final String NICKNAME="HELLO";
+	static final String HOST_NAME="127.0.0.1";
+	InetAddress serverAddress;
+	Socket socket;
+	 static TextView txtMessagesReceived;
+	 EditText txtMessage;
+	 
+	 CommsThread commsThread;
+	 //更新主界面
+	 static Handler UIupdater=new Handler(){
+		 @Override
+		 public void handleMessage(Message msg){
+			 int numOfBytesReceived=msg.arg1;
+			 byte[] buffer=(byte[])msg.obj;
+			 String strReceived=new String(buffer);
+			 
+			 strReceived=strReceived.substring(0,numOfBytesReceived);
+			 
+			 txtMessagesReceived.setText(txtMessagesReceived.getText().toString()+strReceived);
+			 
+		 }
+	 };
+	
+	 private class CreateCommThreadTask extends AsyncTask<Void,Integer,Void>{
+
+		@Override
+		protected Void doInBackground(Void... arg0) {
+			// TODO Auto-generated method stub
+			try{
+				 serverAddress=InetAddress.getByName(HOST_NAME);
+				 socket=new Socket(serverAddress,500);
+				 commsThread=new CommsThread(socket);
+				 commsThread.start();
+				 sendToServer(NICKNAME);
+			} catch(UnknownHostException ex){
+				Log.d("Sockets","" );
+			}
+			return null;
+		}
+		 
+	 }
+	 private class WriteToServerTask extends AsyncTask<byte[],Void,Void>{
+		
+		@Override
+		protected Void doInBackground(byte[]... params) {
+			// TODO Auto-generated method stub
+			commsThread.write(params[0]);
+			return null;
+		}
+	 }
+	 
+	 private class CloseSocketTask extends AsyncTask<Void,Void,Void>{
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			// TODO Auto-generated method stub
+			try{
+				socket.close();
+			} catch(IOException e){
+				Log.d("Sockets", e.getLocalizedMessage());
+			}
+			return null;
+		}
+		 
+	 }
+	 
+	 
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		
+		txtMessage=(EditText)findViewById(R.id.txtMessage);
+		txtMessagesReceived=(TextView)findViewById(R.id.txtMessagesReceived);
+	}
+	public void onClickSend(View v){
+		sendToServer(txtMessage.getText().toString());
+	}
+	private void sendToServer(String message){
+		byte[] theBytesArray=message.getBytes();
+		new WriteToServerTask().execute(theBytesArray);
+	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+		new CreateCommThreadTask().execute();
+	}
+	@Override
+	public void onPause(){
+		super.onPause();
+		new CloseSocketTask().execute();
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+}

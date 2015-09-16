@@ -1,0 +1,7 @@
+package com.example.helloworld;
+
+import android.app.Service;
+
+public class MyServer extends Service {
+	
+}

@@ -1,0 +1,11 @@
+package com.example.helloworld;
+
+public class SendSMS extends Activity {
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.smsactivity);
+	}
+	
+	
+}

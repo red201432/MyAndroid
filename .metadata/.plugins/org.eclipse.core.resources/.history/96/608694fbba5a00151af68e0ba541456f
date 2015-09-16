@@ -1,0 +1,5 @@
+package com.example.contentprovidertest;
+
+public class MyContentProvider {
+
+}

@@ -1,0 +1,62 @@
+package com.example.helloworld;
+
+import android.app.ListActivity;
+import android.content.CursorLoader;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.v4.widget.CursorAdapter;
+import android.support.v4.widget.SimpleCursorAdapter;
+
+public class ProviderActivity extends ListActivity {
+	@SuppressWarnings("deprecation")
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.provider_activity);
+		
+		Uri allContacts=Uri.parse("content://contacts/people");
+		
+		Cursor c;
+		
+		if(android.os.Build.VERSION.SDK_INT<11){
+			c=managedQuery(allContacts,null,null,null,null);
+		} else{
+			CursorLoader cursorLoader=new CursorLoader(this,
+					allContacts,
+					null,
+					null,
+					null,
+					null
+					);
+			c=cursorLoader.loadInBackground();
+		}
+		
+		String[] columns=new String[]{
+				ContactsContract.Contacts._ID,
+				ContactsContract.Contacts.DISPLAY_NAME
+//				ContactsContract.Contacts.DISPLAY_NAME_SOURCE
+		};
+		
+		int[] views=new int[] {R.id.contactName,R.id.contactID};
+		
+		SimpleCursorAdapter adapter;
+		if(android.os.Build.VERSION.SDK_INT<11){
+			adapter =new SimpleCursorAdapter(this,R.layout.provider_activity,c,columns,views);
+		
+		} else {
+			adapter=new SimpleCursorAdapter(this,R.layout.provider_activity,c,columns,views,CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+		}
+		this.setListAdapter(adapter);
+	}
+	
+	private void PrintContacts(Cursor c){
+		if(c.moveToNext()){
+			do{
+				String contactID=c.getString(c.getColumnIndex(ContactsContract.Contacts._ID));
+				String contactDisplayName=c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+			}
+		}
+	}
+}

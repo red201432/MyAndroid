@@ -1,0 +1,77 @@
+package com.example.helloworld;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageView;
+
+public class NetWorkActivity extends Activity {
+	ImageView img;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.networkactivity);
+	}
+	private InputStream OpenHttpConnection(String urlString) throws IOException{
+		InputStream in=null;
+		int response=-1;
+		URL url=new URL(urlString);
+		URLConnection conn=url.openConnection();
+		if(!(conn instanceof HttpURLConnection)){
+			throw new IOException("Not an HTTP connection");
+		}
+			try{
+				HttpURLConnection httpConn=(HttpURLConnection)conn;
+				httpConn.setAllowUserInteraction(false);
+				httpConn.setInstanceFollowRedirects(true);
+				httpConn.setRequestMethod("GET");
+				httpConn.connect();
+				
+				response=httpConn.getResponseCode();
+				if(response==HttpURLConnection.HTTP_OK){
+					in=httpConn.getInputStream();
+				}
+			} catch(Exception ex){
+				Log.d("NetWorking ", ex.getLocalizedMessage());
+				throw new IOException("Error conection");
+			}
+			return in;
+		}
+	private Bitmap DownLoadImage(String URL){
+		Bitmap bitmap=null;
+		InputStream in=null;
+		
+		try{
+			in=OpenHttpConnection(URL);
+			bitmap=BitmapFactory.decodeStream(in);
+			in.close();
+		} catch (IOException ex){
+			Log.d("NetWorkingActivity", ex.getLocalizedMessage());
+		}
+		
+		return bitmap;
+	}
+	
+	private class DownloadImageTask extends AsyncTask<String,Void,Bitmap>{
+		protected Bitmap doInBackground(String... urls){
+			return DownLoadImage(urls[0]);
+		}
+		
+		protected void onPostExecute(Bitmap result){
+			ImageView img=(ImageView)findViewById(R.id.img);
+			
+		}
+	}
+	
+	
+}

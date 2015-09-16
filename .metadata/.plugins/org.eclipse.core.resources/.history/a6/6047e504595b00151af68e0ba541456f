@@ -1,0 +1,24 @@
+package com.example.helloworld;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+
+public class EmailActivity extends Activity {
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.sendemailactivity);
+	}
+	
+	public void onClick_SendEmail(View v){
+		String[] to={"someguy@example.com","anotherguy@example.com"};
+		String[] cc={"busybody@example.com"};
+		sendEmail(to,cc,"Hello","Hello my friends");
+		
+	}
+	
+	private void sendEmail(String[] emailAddress,String[] carbonCopies,String subject,String message){
+		
+	}
+}

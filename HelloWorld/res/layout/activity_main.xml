@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -16,14 +16,41 @@
         android:layout_height="wrap_content"
         android:text="@string/hello_world"        
          />
-
+          <Button 
+        android:id="@+id/btnNetWork"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Net Work"
+        android:onClick="onClickShowNetWork"
+        />
+         <Button 
+        android:id="@+id/btnService"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="MyService"
+        android:onClick="onClickShowService"
+        />
+	    <Button 
+        android:id="@+id/btnShowSendSMS"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Send SMS"
+        android:onClick="onClickShowSendSMS"
+        />
+	   <Button 
+        android:id="@+id/btnShowSendEmail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Send Email"
+        android:onClick="onClickShowSendEmail"
+        />
     <Button
         android:id="@+id/btn_dialog"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
-        android:layout_marginTop="149dp"
+        
         android:onClick="onClick"
         android:text="click to display a dialog"
         android:color="@color/alizarin"
@@ -36,7 +63,6 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
-        android:layout_marginTop="49dp"
         android:onClick="showData"
        
         android:text="click to display a progress dialog"
@@ -48,7 +74,6 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
-        android:layout_marginTop="79dp"
         android:onClick="onClick3"
         android:text="click to display a details progress dialog"
         android:layout_gravity="center"
@@ -112,4 +137,4 @@
      	android:layout_height="200dp"
  		/>    	
      </FrameLayout>
-</RelativeLayout>
+</LinearLayout>

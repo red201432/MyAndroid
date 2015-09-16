@@ -80,6 +80,17 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		Log.d(tag, "In the onCreate() event");
 	}
+	public void onClickShowNetWork(View v){
+		startActivity(new Intent("com.example.helloworld.NetWorkActivity"));
+	}
+	public void onClickShowSendEmail(View v){
+		startActivity(new Intent("com.example.helloworld.EmailActivity"));
+	}
+	
+	public void onClickShowSendSMS(View v)
+	{
+		startActivity(new Intent("com.example.helloworld.SendSMS"));
+	}
 	public void showTimePicker(View v){
 		setContentView(R.layout.timepicker1);
 	}
@@ -87,6 +98,9 @@ public class MainActivity extends Activity {
 		timePicker=(TimePicker) findViewById(R.id.timePicker);
 		timePicker.setIs24HourView(true);
 		Toast.makeText(getBaseContext(),"Time selected :"+timePicker.getCurrentHour()+":"+timePicker.getCurrentMinute(),Toast.LENGTH_SHORT).show();
+	}
+	public void onClickShowService(View v){
+		startActivity(new Intent("com.example.helloworld.ServicesActivity"));
 	}
 	public void onClick(View v){
 		showDialog(0);
@@ -245,7 +259,8 @@ public class MainActivity extends Activity {
 //		}
 //	}
 	public void showGallery(View v){
-		startActivity(new Intent("com.example.helloworld.GalleryActivity"));
+		//startActivity(new Intent("com.example.helloworld.GalleryActivity"));
+		startActivity(new Intent("com.example.helloworld.ProviderActivity"));
 	}
 	public void  showPreference(View v){
 		Intent i=new Intent("com.example.helloworld.AppPreferenceActivity");

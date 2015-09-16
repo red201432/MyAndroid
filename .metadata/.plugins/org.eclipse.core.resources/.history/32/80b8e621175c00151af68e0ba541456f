@@ -1,0 +1,10 @@
+package com.example.sockets;
+
+public class CommsThread extends Thread{
+	private final Socket socket;
+	private final InputStream inputStream;
+	private final OutputStream outputSteam;
+	public CommsThread(Socket sock){
+		
+	}
+}
