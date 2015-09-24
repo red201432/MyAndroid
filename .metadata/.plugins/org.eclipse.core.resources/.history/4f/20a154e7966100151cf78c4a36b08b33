@@ -1,0 +1,8 @@
+package com.example.hellomoon;
+
+import android.media.MediaPlayer;
+
+public class AudioPlayer {
+	private MediaPlayer mPlayer;
+	
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AndroidProgramming</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="true_button">True</string>
+    <string name="false_button">False</string>
+    <stirng name="next_button">Next</stirng>
+	 <string name="question_text">Constantinople is the largest city in Turkey.</string>
+	 <string name="correct_button">Correct!</string>
+</resources>

@@ -1,0 +1,21 @@
+package com.example.criminalintent;
+
+import android.content.Context;
+
+public class CrimeLab {
+	private static CrimeLab sCrimeLab;
+	private Context mAppContext;
+	
+	private CrimeLab(Context appContext) {
+		mAppContext=appContext;
+	}
+	/*
+	 * 单例模式--保证只有一个CrimeLab对象
+	 * */
+	public static CrimeLab get(Context c){
+		if(sCrimeLab==null){
+			sCrimeLab=new CrimeLab(c.getApplicationContext());
+		}
+		return sCrimeLab;
+	}
+}

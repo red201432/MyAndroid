@@ -1,0 +1,14 @@
+package com.example.criminalintent;
+
+import android.content.Context;
+
+public class CriminalIntentJsonSerializer {
+	private Context mContext;
+	private  String  mFilename;
+	
+	public  public CriminalIntentJsonSerializer(Context c,String f) {
+		// TODO Auto-generated constructor stub
+		mContext=c;
+		mFilename=f;
+	}
+}

@@ -1,0 +1,15 @@
+package com.example.criminalintent;
+
+import java.util.ArrayList;
+
+import android.app.Fragment;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+
+public class CrimeListFragment  extends SingleFragmentActivity{
+	@Override
+	protected FragmentActivity createFragment() {
+		// TODO Auto-generated method stub
+		return new CrimeListFragment();
+	}
+}

@@ -1,0 +1,21 @@
+package com.example.criminalintent;
+
+import java.util.ArrayList;
+
+import android.content.Context;
+
+public class CriminalIntentJsonSerializer {
+	private Context mContext;
+	private  String  mFilename;
+	
+	public CriminalIntentJsonSerializer(Context c,String f) {
+		// TODO Auto-generated constructor stub
+		mContext=c;
+		mFilename=f;
+	}
+	
+	public void  saveCrimes(ArrayList<Crime>){
+		
+		
+	}
+}

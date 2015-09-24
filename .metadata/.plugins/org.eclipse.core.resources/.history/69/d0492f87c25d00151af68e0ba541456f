@@ -1,0 +1,8 @@
+package testforclass;
+
+public class MyMain {
+	public static void main(String[] args){
+		final c;
+		 c=new Circle();
+	}
+}

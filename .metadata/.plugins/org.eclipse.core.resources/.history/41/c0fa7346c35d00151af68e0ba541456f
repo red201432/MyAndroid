@@ -1,0 +1,10 @@
+package testforclass;
+
+import org.omg.CORBA.PRIVATE_MEMBER;
+
+public class MyMain {
+	private final Circle circle;
+	public static void main(String[] args){		
+		Circle c=new Circle();
+	}
+}

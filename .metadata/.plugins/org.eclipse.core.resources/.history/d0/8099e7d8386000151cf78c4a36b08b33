@@ -1,0 +1,47 @@
+package com.example.criminalintent;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.UUID;
+
+import android.text.format.Time;
+
+public class Crime {
+	private UUID mId;
+	private String mTitle;
+	private Date mDate;
+	private boolean mSolved;
+	private SimpleDateFormat sdf;
+	
+	public Crime(){
+		mId=UUID.randomUUID();
+		mDate=new Time();
+	}
+	public UUID getmId() {
+		return mId;
+	}
+	public void setmId(UUID mId) {
+		this.mId = mId;
+	}
+	public String getmTitle() {
+		return mTitle;
+	}
+	public void setmTitle(String mTitle) {
+		this.mTitle = mTitle;
+	}
+	public Time getmDate() {
+		long time=System.currentTimeMillis();
+		sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		mDate=new Date(time);
+		return mDate;
+	}
+	public void setmDate(Time mDate) {
+		this.mDate = mDate;
+	}
+	public boolean ismSolved() {
+		return mSolved;
+	}
+	public void setmSolved(boolean mSolved) {
+		this.mSolved = mSolved;
+	}
+}

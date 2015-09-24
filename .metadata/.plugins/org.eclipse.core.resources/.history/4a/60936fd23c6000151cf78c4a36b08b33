@@ -1,0 +1,11 @@
+package com.example.criminalintent;
+
+import android.app.Fragment;
+import android.os.Bundle;
+
+public class CrimeListFragment  extends Fragment{
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		
+	}
+}

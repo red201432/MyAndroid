@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ferryservice.ferry"
+    android:versionCode="13"
+    android:versionName="2.3.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="21" />
+    
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />  
+	<uses-permission android:name="android.permission.INTERNET" />  
+	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />  
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />  
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+	
+	<uses-permission android:name="android.permission.GET_ACCOUNTS" />  
+	<uses-permission android:name="android.permission.USE_CREDENTIALS" />  
+	<uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+	<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/> 
+	<uses-permission android:name="android.permission.READ_LOGS"/> 
+	<uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />  
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />  
+	<uses-permission android:name="android.permission.BROADCAST_STICKY" />  
+	<uses-permission android:name="android.permission.WRITE_SETTINGS" />  
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+
+    <application
+        android:name="com.ferryservice.ferry.MyApp"
+        android:allowBackup="false"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <meta-data  
+	        android:name="com.baidu.lbsapi.API_KEY"  
+	        android:value="ZzXtLGUhGmdPhKiCbCdG1HCv" />
+        
+        <activity 
+            android:name="com.ferryservice.ferry.ui.SplashAcitivy"
+            android:theme="@style/Action.FullScreen"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="com.ferryservice.ferry.ui.LoginActivity"
+            android:theme="@style/Action.NoActionBar"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity 
+            android:name="com.ferryservice.ferry.ui.RegisterActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:theme="@style/Action.NoActionBar"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait">
+        </activity>
+        
+        <activity 
+            android:name="com.ferryservice.ferry.ui.ForgotPasswordActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:theme="@style/Action.NoActionBar"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait">
+        </activity>
+        
+        <activity
+            android:name="com.ferryservice.ferry.ui.MainActivity"
+            android:theme="@style/Action.NoActionBar"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
+        </activity>
+        
+        <activity
+            android:name="com.ferryservice.ferry.ui.MyBookingActivity"
+            android:theme="@style/Action.NoActionBar"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
+        </activity>
+        
+        <activity
+            android:name="com.ferryservice.ferry.ui.BookingQueryActivity"
+            android:theme="@style/Action.NoActionBar"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
+        </activity>
+        
+        <activity
+            android:name="com.ferryservice.ferry.ui.RealtimeQueryActivity"
+            android:theme="@style/Action.NoActionBar"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
+        </activity>
+        
+        <activity
+            android:name="com.ferryservice.ferry.ui.InfoBoardActivity"
+            android:theme="@style/Action.NoActionBar"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
+        </activity>
+        
+        <activity
+            android:name="com.ferryservice.ferry.ui.FeedbackActivity"
+            android:theme="@style/Action.NoActionBar"
+            android:screenOrientation="portrait">
+        </activity>
+        
+        <activity
+            android:name="com.ferryservice.ferry.ui.NewsActivity"
+            android:theme="@style/Action.NoActionBar"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
+        </activity>
+        
+        <activity
+            android:name="com.ferryservice.ferry.ui.RouteActivity"
+            android:theme="@style/Action.NoActionBar"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
+        </activity>
+        
+        <activity
+            android:name="com.ferryservice.ferry.ui.SettingActivity"
+            android:theme="@style/Action.NoActionBar"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
+        </activity>
+        
+        <activity
+            android:name="com.ferryservice.ferry.ui.ChangePwdActivity"
+            android:theme="@style/Action.NoActionBar"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
+        </activity>
+        
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
+        </service>
+        
+    </application>
+
+</manifest>

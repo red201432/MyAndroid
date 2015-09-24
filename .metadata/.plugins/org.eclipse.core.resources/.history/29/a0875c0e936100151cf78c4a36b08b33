@@ -1,0 +1,10 @@
+package com.example.hellomoon;
+
+import android.support.v4.app.Fragment;
+import android.widget.Button;
+
+public class HelloMoonFragment extends Fragment {
+	private Button mPlayButton;
+	private Button mStopButton;
+	
+}
