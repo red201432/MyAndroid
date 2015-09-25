@@ -1,0 +1,21 @@
+package com.example.criminalintent;
+
+import android.app.DialogFragment;
+import android.os.Bundle;
+
+public class ImageFragment extends DialogFragment {
+	public static final String ExTRA_iMAGE_PATH=
+			"com.example.CriminalIntent.image_path";
+	
+	public static ImageFragment newInstance(String imagePath)
+	{
+		Bundle args=new Bundle();
+		args.putSerializable(ExTRA_iMAGE_PATH, imagePath);
+		
+		ImageFragment fragment=new ImageFragment();
+		fragment.setArguments(args);
+		fragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+		
+		return fragment;
+	}
+}

@@ -1,0 +1,14 @@
+package com.example.criminalintent;
+
+import android.app.Activity;
+import android.graphics.drawable.BitmapDrawable;
+
+public class PictureUtils {
+	/*
+	 * Õº∆¨Àı∑≈¿‡
+	 * */
+	@SuppressWarnings("deprecation")
+	public static BitmapDrawable getScaledDrawable(Activity a,String path){
+		
+	}
+}

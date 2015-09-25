@@ -10,10 +10,15 @@ import android.support.v4.app.FragmentActivity;
 public abstract class SingleFragmentActivity extends FragmentActivity {
 	protected abstract android.support.v4.app.Fragment createFragment();
 	
+	protected int  getLayoutResId() {
+		return R.layout.crimelist_activity;
+	}	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		//setContentView(R.layout.activity_main);
+		setContentView(getLayoutResId());
 		/* 
 		 *  创建并提交一个Fragment事务
 		 *  */
@@ -22,7 +27,9 @@ public abstract class SingleFragmentActivity extends FragmentActivity {
 		if(fragment== null){
 			fragment=createFragment();
 			/*fragment事务 add 第一参数是容器ID 第二个参数是新创建的fragment*/
-			fm.beginTransaction().add(R.id.fragmentContainer, fragment).commit();
+			fm.beginTransaction()
+			.add(R.id.fragmentContainer, fragment)
+			.commit();
 		}
 	}
 }

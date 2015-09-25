@@ -1,0 +1,8 @@
+package com.example.criminalintent;
+
+import android.app.DialogFragment;
+
+public class ImageFragment extends DialogFragment {
+	public static final String ExTRA_iMAGE_PATH=
+			"com.example.CriminalIntent.image_path";
+}

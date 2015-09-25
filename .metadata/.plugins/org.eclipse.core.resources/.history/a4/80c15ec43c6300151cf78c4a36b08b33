@@ -1,0 +1,14 @@
+package com.example.criminalintent;
+
+public class Photo {
+	private static final String JSON_FILENAME="filename";
+	
+	private String mFilename;
+	
+	public  public Photo(String filename) {
+		// TODO Auto-generated constructor stub
+		mFilename=filename;
+	}
+	
+	
+}

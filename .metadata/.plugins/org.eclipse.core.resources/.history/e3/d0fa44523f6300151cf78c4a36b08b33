@@ -1,0 +1,21 @@
+package com.example.criminalintent;
+
+import android.app.Activity;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.view.Display;
+
+public class PictureUtils {
+	/*
+	 * Õº∆¨Àı∑≈¿‡
+	 * */
+	@SuppressWarnings("deprecation")
+	public static BitmapDrawable getScaledDrawable(Activity a,String path){
+		Display display=a.getWindowManager().getDefaultDisplay();
+		float destWidth=display.getWidth();
+		float destHeight=display.getHeight();
+		
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		
+	}
+}

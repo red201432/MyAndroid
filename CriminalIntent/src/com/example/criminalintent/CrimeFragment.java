@@ -1,20 +1,21 @@
 package com.example.criminalintent;
 
 import java.util.Date;
-import java.lang.annotation.Target;
-import java.text.SimpleDateFormat;
 import java.util.UUID;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.BitmapDrawable;
+import android.hardware.Camera;
+import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,16 +25,22 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 public class CrimeFragment extends Fragment {
 	private Crime mCrime;
 	private EditText mTitleField;
 	private Button mDateButton;
 	private CheckBox mSolvedCheckBox;
-
+	private ImageView mPhotoView;
+	
+	private static final String DIALOG_IMAGE="image";
+	private static final String TAG="CrimeFragment";	
 	public static final String EXTRA_CRIME_ID="com.example.criminalintent.crime_id";
 	public static final String DIALOG_DATE="date";
 	private static final int REQUEST_DATE=0;
+	//get photo code
+	private static final int REQUEST_PHOTO=1;
 	
 	private ImageButton mPhotoButton;
 	@Override
@@ -56,15 +63,42 @@ public class CrimeFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent i=new Intent(getActivity(),CrimeCameraFragment.class);
-				startActivity(i);
+				Intent i=new Intent(getActivity(),CrimeCameraActivity.class);
+				//startActivity(i);
+				startActivityForResult(i, REQUEST_PHOTO);
 			}
 		});
-		
+		//检查是否有相机
+		PackageManager pm=getActivity().getPackageManager();
+		boolean hasACamra=pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)||
+				pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT)||
+				Build.VERSION.SDK_INT< Build.VERSION_CODES.GINGERBREAD||
+				Camera.getNumberOfCameras()>0;
+		if(!hasACamra){
+			mPhotoButton.setEnabled(false);
+		}
+				
+		//显示图片
+		mPhotoView=(ImageView)view.findViewById(R.id.crime_imageView);
+		mPhotoView.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Photo p=mCrime.getPhoto();
+				if(p==null)
+					return ;
+//				FragmentManager fm=getActivity().getSupportFragmentManager();
+				android.app.FragmentManager fm=getActivity().getFragmentManager();
+				String path=getActivity().getFileStreamPath(p.getFilename()).getAbsolutePath();
+				
+				ImageFragment.newInstance(path).show(fm, DIALOG_IMAGE);
+			}
+		});
 		if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB){
 			if(NavUtils.getParentActivityName(getActivity())!=null){
-			getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);//让应用图标转变为按钮，并显示一个向左的图标
-			
+			//让应用图标转变为按钮，并显示一个向左的图标
+			getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);			
 			}
 		}		
 		mTitleField=(EditText)view.findViewById(R.id.crime_title);
@@ -126,6 +160,16 @@ public class CrimeFragment extends Fragment {
 		return fragment;
 	}
 	
+	public void showPhoto(){
+		Photo p=mCrime.getPhoto();
+		BitmapDrawable b=null;
+		if(p!=null){
+			String path=getActivity().getFileStreamPath(p.getFilename()).getAbsolutePath();
+			b=PictureUtils.getScaledDrawable(getActivity(), path);
+		}
+		mPhotoView.setImageDrawable(b);
+	}
+	
 	@Override
 	public void onActivityResult(int requestCode,int resultCode,Intent data){
 		if(resultCode!=Activity.RESULT_OK) return ;
@@ -133,6 +177,14 @@ public class CrimeFragment extends Fragment {
 			Date date=(Date)data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
 			mCrime.setmDate(date);
 			mDateButton.setText(mCrime.getmDate().toString());
+		}else if (requestCode==REQUEST_PHOTO) {
+			String filename=data.getStringExtra(CrimeCameraFragment.EXTRA_PHOTO_FILENAME);
+			if(filename!=null){
+				//Log.i(TAG,"filename :"+filename);
+				Photo p=new Photo(filename);
+				mCrime.setPhoto(p);
+				showPhoto();
+			}
 		}
 	}	
 	
@@ -142,5 +194,18 @@ public class CrimeFragment extends Fragment {
 		super.onPause();
 		CrimeLab.get(getActivity()).saveCrimes();
 	}
-
+	
+	@Override
+	public void onStart(){
+		super.onStart();
+		showPhoto();
+	}
+	
+	@Override
+	public void onStop(){
+		super.onStop();
+		PictureUtils.cleanImageView(mPhotoView);
+	}
+	
+	
 }
