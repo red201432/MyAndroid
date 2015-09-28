@@ -1,0 +1,20 @@
+package com.example.photogallery;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import android.R.string;
+
+public class FlickFetchr {
+	byte[] getUrlBytes(String urlSpec) throws IOException{
+		URL url=new URL(urlSpec);
+		
+		HttpURLConnection connection=(HttpURLConnection)url.openConnection();
+		try {
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+}

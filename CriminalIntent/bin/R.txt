@@ -554,6 +554,7 @@ int layout abc_select_dialog_material 0x7f030017
 int layout abc_simple_dropdown_hint 0x7f030018
 int layout activity_crime 0x7f030019
 int layout activity_main 0x7f03001a
+int layout activity_masterdetail 0x7f03002d
 int layout activity_twopane 0x7f03001b
 int layout crimelist_activity 0x7f03001c
 int layout dialog_date 0x7f03001d

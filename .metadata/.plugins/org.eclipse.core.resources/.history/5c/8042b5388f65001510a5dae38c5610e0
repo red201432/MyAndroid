@@ -1,0 +1,10 @@
+package com.example.remotecontrol;
+
+import android.support.v4.app.Fragment;
+import android.widget.TextView;
+
+public class RemoteControlFragment extends Fragment {
+	private TextView mSelectedTextView;
+	private TextView mWorkingTextView;
+	
+}

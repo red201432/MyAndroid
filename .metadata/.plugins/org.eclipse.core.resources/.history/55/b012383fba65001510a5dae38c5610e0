@@ -1,0 +1,11 @@
+package com.example.photogallery;
+
+import java.io.IOException;
+
+import android.R.string;
+
+public class FlickFetchr {
+	byte[] getUrlBytes(String urlSpec) throws IOException{
+		
+	}
+}
