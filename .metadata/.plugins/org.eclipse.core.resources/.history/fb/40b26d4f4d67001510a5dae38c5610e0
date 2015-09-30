@@ -1,0 +1,32 @@
+package com.example.draganddraw;
+
+import java.text.AttributedCharacterIterator.Attribute;
+
+import android.content.Context;
+import android.graphics.PointF;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.View;
+
+public class BoxDrawingView extends View {
+	public static final String TAG="BoxDrawingView";
+	
+	
+	
+	public BoxDrawingView(Context context) {
+		this(context,null);
+		// TODO Auto-generated constructor stub
+	}
+
+	public BoxDrawingView(Context context, AttributeSet attr) {
+		// TODO Auto-generated constructor stub
+		super(context,attr);
+	}
+	
+	public boolean onTouchEvent(MotionEvent event){
+		PointF curr=new PointF(event.getX(),event.getY());
+		
+		
+		return true;
+	}
+}

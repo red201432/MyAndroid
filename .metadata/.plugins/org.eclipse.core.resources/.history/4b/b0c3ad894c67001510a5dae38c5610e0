@@ -1,0 +1,18 @@
+package com.example.draganddraw;
+
+import android.content.Context;
+import android.view.View;
+
+public class BoxDrawingView extends View {
+
+	public BoxDrawingView(Context context) {
+		this(context,null);
+		// TODO Auto-generated constructor stub
+	}
+
+	public BoxDrawingView(Context context, Object object) {
+		// TODO Auto-generated constructor stub
+		
+	}
+	
+}

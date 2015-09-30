@@ -3,16 +3,42 @@ package com.example.photogallery;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.R.string;
+import android.net.Uri;
 import android.nfc.Tag;
 import android.os.AsyncTask;
+import android.text.StaticLayout;
 import android.util.Log;
 
 public class FlickFetchr {
-	private static final String TAG="PhotoGalleryGragment";
+	//private static final String TAG="PhotoGalleryGragment";
+	public static final String TAG="FlickrFetchr";
+//	private static final String ENDPOINT="http://api.flickr.com/services/rest/";
+//	private static final String API_KEY="4b096054791f66ac2b6889b34019229";
+//	private static final String METHOD_GET_RESENT="flickr.photos.getRecent";
+//	private static final String PARAM_EXTRAS="extras";
+//	private static final String EXTRA_SMALL_URL="url_s";
+//	
+//	private static final String XML_PHOTO="photo";
+	private static final String ENDPOINT="http://api.tietuku.com/v2/api/getrandrec";
+	private static final String API_KEY="";
+	private static final String METHOD_GET_RESENT="";
+	private static final String PARAM_EXTRAS="";
+	private static final String EXTRA_SMALL_URL="";
+	
+	private static final String XML_PHOTO="";
+	
+	
+	
 	/*此方法获取数据
 	 * 
 	 */
@@ -47,5 +73,56 @@ public class FlickFetchr {
 		return new String(getUrlBytes(urlSpec));
 	}
 	
+	/*
+	 * 获取所需内容
+	 */
+	//public void fetchItems(){
+	public ArrayList<GalleryItem> fetchItems(){
+		ArrayList<GalleryItem> items=new ArrayList<GalleryItem>();
+		try {
+			/*
+			 * 使用Uri.Builder构建完整的Flickr API请求URL
+			 */
+			String url=Uri.parse(ENDPOINT).buildUpon().appendQueryParameter("method", METHOD_GET_RESENT)
+					.appendQueryParameter("api_key", API_KEY)
+					.appendQueryParameter(PARAM_EXTRAS, EXTRA_SMALL_URL)
+					.build().toString();
+			String xmlString=getUrl(url);
+			Log.i(TAG, "Received xml : "+xmlString);
+			XmlPullParserFactory factory=XmlPullParserFactory.newInstance();
+			XmlPullParser parser=factory.newPullParser();
+			parser.setInput(new StringReader(xmlString));
+			parseItems(items, parser);
+		} catch (IOException e) {
+			// TODO: handle exception
+			Log.e(TAG, "Filed to fetch items ",e);
+		} catch (XmlPullParserException e) {
+			// TODO: handle exception
+			Log.e(TAG, "Filed to psrse items ",e);
+		}
+		return items;
+	}
 	
+	/*
+	 * 解析图片
+	 */
+	void parseItems(ArrayList<GalleryItem> items,XmlPullParser parser)
+			throws XmlPullParserException,IOException{
+		int eventType=parser.next();
+		
+		while(eventType!=XmlPullParser.END_DOCUMENT){
+			if(eventType == XmlPullParser.START_TAG && 
+					XML_PHOTO.equals(parser.getName())){
+				String id=parser.getAttributeValue(null, "id");
+				String caption=parser.getAttributeValue(null, "title");
+				String smallUrl=parser.getAttributeValue(null, EXTRA_SMALL_URL);
+				GalleryItem item = new GalleryItem();
+				item.setmId(id);
+				item.setmCaption(caption);
+				item.setmUrl(smallUrl);
+				items.add(item);
+			}
+			eventType=parser.next();
+		}
+	}
 }
